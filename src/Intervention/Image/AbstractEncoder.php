@@ -85,6 +85,13 @@ abstract class AbstractEncoder
     abstract protected function processWebp();
 
     /**
+     * Process and returns image as HEIC encoded string
+     *
+     * @return string
+     */
+    abstract protected function processHeic();
+
+    /**
      * Process a given image
      *
      * @param  Image   $image
@@ -167,6 +174,15 @@ abstract class AbstractEncoder
             case 'image/webp':
             case 'image/x-webp':
                 $this->result = $this->processWebp();
+                break;
+
+            case 'heic':
+            case 'heif':
+            case 'image/heif':
+            case 'image/heif-sequence':
+            case 'image/heic':
+            case 'image/heic-sequence':
+                $this->result = $this->processHeic();
                 break;
                 
             default:

@@ -121,4 +121,16 @@ class Encoder extends \Intervention\Image\AbstractEncoder
             "PSD format is not supported by Gd Driver."
         );
     }
+
+    /**
+     * Processes and returns encoded image is HEIC string,
+     *
+     * @return string
+     */
+    protected function processHeic()
+    {
+        throw new NotSupportedException(
+            "HEIC format not supported be Gd Driver."
+        );
+    }
 }

@@ -170,4 +170,33 @@ class Encoder extends AbstractEncoder
 
         return $imagick->getImagesBlob();
     }
+
+    /**
+     * Processes and returns encoded image as HEIC string
+     *
+     * @return string
+     */
+    protected function processHeic()
+    {
+        if (! \Imagick::queryFormats('HEIC')) {
+            throw new NotSupportedException(
+                "HEIC format is not supported by Imagick installation."
+            );
+        }
+
+        $format = 'heic';
+        $compression = \Imagick::COMPRESSION_JPEG;
+
+        $imagick = $this->image->getCore();
+        $imagick->setImageBackgroundColor(new \ImagickPixel('transparent'));
+
+        $imagick = $imagick->mergeImageLayers(\Imagick::LAYERMETHOD_MERGE);
+        $imagick->setFormat($format);
+        $imagick->setImageFormat($format);
+        $imagick->setCompression($compression);
+        $imagick->setImageCompression($compression);
+        $imagick->setImageCompressionQuality($this->quality);
+
+        return $imagick->getImageBlob();
+    }
 }
